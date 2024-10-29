@@ -1,5 +1,3 @@
-import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 public class Card {
@@ -18,6 +16,9 @@ public class Card {
 
     public String GetSuit() { return Suit; }
 
+    public int GetRank() { return Rank; }
+
+    // returns characters
     public String ToString() {
         Map<Integer, String> faceMap = Map.of(1, "J", 2, "Q", 3, "K");
         String suit = Suit.substring(0,1).toUpperCase();
@@ -28,6 +29,21 @@ public class Card {
             return "A of " + suit;
         }
         return Rank + " of " + suit;
+    }
+
+    // overload for word form
+    public String ToString(boolean longForm) {
+        if (longForm) {
+            Map<Integer, String> faceMap = Map.of(1, "Jack", 2, "Queen", 3, "King");
+            String suit = Suit;
+
+            if ((double) Rank / 10 > 1) {
+                return faceMap.get(Rank % 10) + " of " + suit;
+            } else if (Rank == 1) {
+                return "Ace of " + suit;
+            }
+            return Rank + " of " + suit;
+        } else { return this.ToString(); }
     }
 
     public String CompareTo(Card other) {
